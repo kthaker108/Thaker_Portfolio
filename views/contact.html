@@ -7,7 +7,7 @@
     <meta name="keywords" content="Carnegie Mellon University, Information Systems">
     <meta name="description" content="Khushi Thaker professional website">
     <link rel="stylesheet" href="../static/style.css">
-    <script defer src="../static/script.js"> </script>
+    <script src="../static/script.js" defer> </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -26,10 +26,19 @@
 
         </nav>
     </header>
-    
-    <div class = "main">
+
+
+    <div class = "mainLayout">
+
+      <div class = "item1">
+        <h2>Find Me</h2>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12145.395968151914!2d-79.9493551!3d40.4454121!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8834f21f58679a9f%3A0x88716b461fc4daf4!2sCarnegie%20Mellon%20University!5e0!3m2!1sen!2sus!4v1742751974959!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+
+
+      <div class = "item2">
         <h2>Contact Me</h2>
-        <form id = "formID" novalidate>
+        <form id = "formID">
             <div>
               <label for="name">Your Name (required):</label>
               <input type="text" id="name" name="name" required>
@@ -43,46 +52,33 @@
               <button type="submit">Submit</button>
             </div>
           </form>
-
           <p id = "errorMessage"></p>
-
-
-
-
-
-
-
-
-
-
-
-
-        <br><br>
+      </div>
         
-        <table>
+      <table>
+        <tr>
+          <th>Contact Method</th>
+          <th>Description</th>
+        </tr>
           <tr>
-            <th>Contact Method</th>
-            <th>Description</th>
+            <td>Email:</td>
+            <td>kthaker@andrew.cmu.edu</td>
           </tr>
-            <tr>
-              <td>Email:</td>
-              <td>kthaker@andrew.cmu.edu</td>
+          <tr>
+            <td>Phone:</td>
+            <td>(267) 461-1955</td>
+          </tr>
+          <tr>
+              <td>LinkedIn:</td>
+              <td> <a href="https://www.linkedin.com/in/khushi-thaker108" target="_blank">Click to Visit</a></td>
             </tr>
-            <tr>
-              <td>Phone:</td>
-              <td>(267) 461-1955</td>
-            </tr>
-            <tr>
-                <td>LinkedIn:</td>
-                <td><a href="https://www.linkedin.com/in/khushi-thaker108" target="_blank">Click to Visit</a></td>
-              </tr>
-          </table>
+        </table>
           <br><br>
 
     </div>
 
     <footer>
-      <p id="copyYear">designed and coded by Khushi Thaker &copy; </p>
+      <p id="copyYear">designed ✎ᝰ and coded 👩🏻‍💻 by Khushi Thaker &copy; </p>
     </footer>
     
 </body>

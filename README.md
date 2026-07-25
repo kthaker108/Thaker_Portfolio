@@ -1,2 +1,1 @@
-“# Khushi_Thaker_personal_website”
-" # TEST"
+A visual collection of my work, achievements, and experiences

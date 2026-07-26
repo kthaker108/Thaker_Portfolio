@@ -2,72 +2,92 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script>
+        (function () {
+            var stored = localStorage.getItem("theme");
+            var theme = stored || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+            document.documentElement.setAttribute("data-theme", theme);
+        })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Khushi Thaker">
     <meta name="keywords" content="Carnegie Mellon University, Information Systems">
     <meta name="description" content="Khushi Thaker professional website">
     <link rel="stylesheet" href="../static/style.css">
-    <script defer src="../static/script.js"> </script>
+    <script defer src="../static/script.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <title>Khushi Thaker</title>
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=Space+Grotesk:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Khushi Thaker — About Me</title>
 </head>
-<body onload="addYear()">
-    <header>
+<body>
 
-        <h1 id="webname">Khushi Thaker</h1>
-        <nav>
-            <a class = "webLinks" href="../index.html">Home</a>
-            <a class = "webLinks" href="cv.html">Experience</a>
-            <a class = "webLinks" href="contact.html">Contact Me</a>
-            <a class = "webLinks" href="fun.html">About Me</a>
+    <div class="bg-ambient" aria-hidden="true">
+        <div class="blob-wrap wrap-1"><span class="blob blob-1"></span></div>
+        <div class="blob-wrap wrap-2"><span class="blob blob-2"></span></div>
+        <div class="blob-wrap wrap-3"><span class="blob blob-3"></span></div>
+        <div class="blob-wrap wrap-4"><span class="blob blob-4"></span></div>
+    </div>
 
-        </nav>
+    <header class="site-header">
+        <div class="nav-inner">
+            <h1 id="webname">Khushi Thaker</h1>
+            <nav>
+                <ul class="nav-links">
+                    <li><a class="webLinks" href="../index.html">Home</a></li>
+                    <li><a class="webLinks" href="cv.html">Experience</a></li>
+                    <li><a class="webLinks" href="contact.html">Contact Me</a></li>
+                    <li><a class="webLinks" href="fun.html">About Me</a></li>
+                </ul>
+                <div class="nav-utility">
+                    <button id="themeToggle" type="button" aria-label="Toggle dark mode">
+                        <i class="fa-solid fa-moon"></i>
+                        <i class="fa-solid fa-sun"></i>
+                    </button>
+                    <div class="hamburger-menu" aria-label="Toggle menu">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                </div>
+            </nav>
+        </div>
     </header>
-    <div class = "mainLayout"> 
 
-        <div class = "item1">
-            <h2>Things I love to do for fun!</h2>
-            <!-- <button id = "seeMoreID" onclick="showList()" type="button">Click to see...</button> -->
-            <ul id = "funList">
-                <li>Traveling</li>
-                <li>Reading</li>
-                <li>Biking</li>
-                <li>Baking</li>
-                <li>Dancing</li>
-                <li>Watching shows and movies (Survivor, The Office, Harry Potter)!</li>
-            </ul>
+    <div class="container">
+        <div class="page-header" data-animate>
+            <span class="eyebrow">A little more about me</span>
+            <h2>Things I Love To Do</h2>
         </div>
 
-        <div class = "item2">
-            <img src="../static/meEurope.jpeg" alt="Picture of Me" class="funIMG">
+        <div class="interests-grid" data-animate>
+            <span class="interest-pill"><i class="fa-solid fa-plane"></i> Traveling</span>
+            <span class="interest-pill"><i class="fa-solid fa-book"></i> Reading</span>
+            <span class="interest-pill"><i class="fa-solid fa-person-biking"></i> Biking</span>
+            <span class="interest-pill"><i class="fa-solid fa-cookie"></i> Baking</span>
+            <span class="interest-pill"><i class="fa-solid fa-music"></i> Dancing</span>
+            <span class="interest-pill"><i class="fa-solid fa-tv"></i> Survivor, The Office &amp; Harry Potter</span>
         </div>
 
-        <div class = "item3">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/kGiaKTHmfyE?si=pOL5HkCGu10g1vgg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>
-
-        <div class = "item4">
-            <div class="container">
-                <h2>Need Some Advice?</h2>
-                <p id="adviceText">Click the Button to get a Random Piece of Advice!</p>
-                <button onclick = "getAdvice()" id = "adviceButton">Get Advice</button>
-
-
+        <div class="fun-grid">
+            <div class="card photo-card" data-animate>
+                <img src="../photos/hiking.jpeg" alt="Picture of Khushi on a Hike" class="funIMG">
             </div>
 
+            <!-- <div class="card video-card" data-animate>
+                <iframe src="https://www.youtube.com/embed/kGiaKTHmfyE?si=pOL5HkCGu10g1vgg" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div> -->
         </div>
 
-
+        <div class="card text-center advice-card" data-animate>
+            <h3>Need Some Advice?</h3>
+            <p id="adviceText">Read a piece of advice I've learned and received over time through my life experiences.</p>
+            <button id="adviceButton" type="button">Get Advice</button>
+        </div>
     </div>
-    
 
     <footer>
         <p id="copyYear">designed ✎ᝰ and coded 👩🏻‍💻 by Khushi Thaker &copy; </p>
     </footer>
-    
+
 </body>
 </html>

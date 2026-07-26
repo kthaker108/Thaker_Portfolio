@@ -1,160 +1,280 @@
-var x = 5;
-var y = 7;
-var z = x + y;
-console.log(z);
 
-var A = "Hello ";
-var B = "world!";
-var C = A + B;
-console.log(C);
+// Theme (light/dark) — toggle + persistence
 
-function SumNPrint(x1, x2){
-    let sum = x1 + x2;
-    var x3 = sum;
-    console.log(x3);
-    return x3
+function getPreferredTheme() {
+  var stored = localStorage.getItem("theme");
+  if (stored === "light" || stored === "dark") return stored;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
-var m = SumNPrint(x, y);
-var n = SumNPrint(A, B);
-
-if (n.length > m){
-    console.log(n);
-}
-else if (n.length < m){
-    console.log(m);
-}
-else {
-    console.log("Good Job!");
+function setTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem("theme", theme);
 }
 
-var L1 = ["Watermelon", "Pineapple", "Pear", "Banana"];
-var L2 = ["Apple", "Banana", "Kiwi", "Orange"];
+function initThemeToggle() {
+  var toggle = document.getElementById("themeToggle");
+  if (!toggle) return;
+  toggle.addEventListener("click", function () {
+    var current = document.documentElement.getAttribute("data-theme");
+    setTheme(current === "dark" ? "light" : "dark");
+  });
+}
 
-// L1.forEach(findTheBanana, L1);
-// L2.forEach(findTheBanana, L2);
 
-function findTheBanana(item, index, arr){
-    if (item == "Banana"){
-        if (arr == L1){
-            window.alert("We found a banana in the first array");
-        }
-        else if (arr == L2){
-            window.alert("We found a banana in second array");
-        }
+// Nav: mobile hamburger + active link highlighting
+
+function toggleMenu() {
+  var links = document.querySelector(".nav-links");
+  if (links) links.classList.toggle("active");
+}
+
+function initHamburgerMenu() {
+  var hamburger = document.querySelector(".hamburger-menu");
+  if (hamburger) hamburger.addEventListener("click", toggleMenu);
+}
+
+function highlightActiveLink() {
+  var currentPage = window.location.pathname.split("/").pop();
+  if (currentPage === "") currentPage = "index.html";
+
+  var links = document.querySelectorAll("nav a.webLinks");
+  links.forEach(function (link) {
+    var href = link.getAttribute("href");
+    if (href && href.endsWith(currentPage)) {
+      link.classList.add("active");
     }
+  });
 }
 
-function greetingFunc(){
-    var d = new Date();
-    var h = d.getHours();
-    var E = document.getElementById("greetingID");
 
-    if (h < 12) {
-        E.innerHTML = "Good morning, I am Khushi!";
-    } else if (h >= 12 && h < 18) {
-        E.innerHTML = "Good afternoon, I am Khushi!";
-    } else if (h >= 18 && h < 20) {
-        E.innerHTML = "Good evening, I am Khushi!";
-    } else if ((h >= 20 && h < 24) || (h >= 0 && h < 5)) {
-        E.innerHTML = "Good night, I am Khushi!";
-    }
-}
+// Home page: time-based greeting + footer year
 
-var currentPage = window.location.href;
+function greetingFunc() {
+  var greetingEl = document.getElementById("greetingID");
+  if (!greetingEl) return;
 
-if (currentPage.includes('/index.html')) {
-    greetingFunc();
+  var hour = new Date().getHours();
+  var greeting;
+
+  if (hour < 12) {
+    greeting = "Good Morning, I am Khushi!";
+  } else if (hour < 18) {
+    greeting = "Good Afternoon, I am Khushi!";
+  } else {
+    greeting = "Good Evening, I am Khushi!";
+  }
+
+  greetingEl.textContent = greeting;
 }
 
 function addYear() {
-    var date = new Date();
-    var year = date.getFullYear();
-    var E = document.getElementById("copyYear");
-        E.innerHTML += year
+  var el = document.getElementById("copyYear");
+  if (el) el.append(String(new Date().getFullYear()));
 }
 
-// function showList() {
-//     document.getElementById("funList").style.display = "block";
-//     document.getElementById("seeMoreID").style.display = "none";
+// Read more / read less toggle 
+function initReadMore() {
+  var longIntro = document.getElementById("longIntro");
+  var readMoreBtn = document.getElementById("readMoreID");
+  var readLessBtn = document.getElementById("readLessID");
 
-// }
+  if (!longIntro || !readMoreBtn || !readLessBtn) return;
 
-$("#longIntro").hide();
-$("#readLessID").hide();
+  longIntro.classList.add("hidden");
+  readLessBtn.classList.add("hidden");
 
+  readMoreBtn.addEventListener("click", function () {
+    longIntro.classList.remove("hidden");
+    readMoreBtn.classList.add("hidden");
+    readLessBtn.classList.remove("hidden");
+  });
 
-$("#readMoreID").click(function() {
-    $("#longIntro").show();
-    $("#readMoreID").hide();
-    $("#readLessID").show();
-});
-
-$("#readLessID").click(function() {
-    $("#longIntro").hide();
-    $("#readMoreID").show();
-    $("#readLessID").hide();
-});
-
-
-
-var form = document.getElementById("formID");
-
-if (form){
-    var errorMessage = document.getElementById("errorMessage");
-
-    form.addEventListener("submit", function(event) {
-        var name = document.getElementById("name");
-        var email = document.getElementById("email");
-        var comment = document.getElementById("comment");
-
-        if (!name.value() || !email.value() || !comment.value()) {
-            event.preventDefault();
-            errorMessage.innerHTML = "Please fill out all required fields!";
-
-        }
-    });
-
+  readLessBtn.addEventListener("click", function () {
+    longIntro.classList.add("hidden");
+    readMoreBtn.classList.remove("hidden");
+    readLessBtn.classList.add("hidden");
+  });
 }
 
+
+// Contact form validation
+
+function showFieldError(input, errorEl, message) {
+  if (message) {
+    input.classList.add("invalid");
+    errorEl.textContent = message;
+    return false;
+  }
+  input.classList.remove("invalid");
+  errorEl.textContent = "";
+  return true;
+}
+
+var CONTACT_EMAIL = "kthaker@andrew.cmu.edu";
+
+function initContactForm() {
+  var form = document.getElementById("formID");
+  if (!form) return;
+
+  var name = document.getElementById("name");
+  var email = document.getElementById("email");
+  var comment = document.getElementById("comment");
+  var statusEl = document.getElementById("errorMessage");
+
+  var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    statusEl.classList.remove("success");
+
+    var nameOk = showFieldError(name, document.getElementById("nameError"),
+      name.value.trim() ? "" : "Please enter your name.");
+    var emailOk = showFieldError(email, document.getElementById("emailError"),
+      emailPattern.test(email.value.trim()) ? "" : "Please enter a valid email.");
+    var commentOk = showFieldError(comment, document.getElementById("commentError"),
+      comment.value.trim() ? "" : "Please enter a comment.");
+
+    if (!nameOk || !emailOk || !commentOk) {
+      statusEl.textContent = "Please fix the highlighted fields.";
+      return;
+    }
+
+    var subject = encodeURIComponent("Portfolio contact from " + name.value.trim());
+    var body = encodeURIComponent(
+      "Name: " + name.value.trim() + "\n" +
+      "Email: " + email.value.trim() + "\n\n" +
+      comment.value.trim()
+    );
+
+    window.location.href = "mailto:" + CONTACT_EMAIL + "?subject=" + subject + "&body=" + body;
+
+    statusEl.textContent = "Opening your email app to send this to Khushi...";
+    statusEl.classList.add("success");
+    form.reset();
+  });
+}
+
+
+// Advice (fun page) — Khushi's own advice, picked at random
+
+var MY_ADVICE = [
+  "Do the best, leave the rest.",
+  "Be confident in yourself.",
+  "Be proud of how far you have come.",
+  "Trust in time.",
+  "Don't be afraid to ask for help.",
+  "It's okay to make mistakes and fail sometimes.",
+  "Put yourself out there and take risks, you won't regret it.",
+  "Grow, be independent, and learn",
+  "Be kind to yourself and others.",
+  "Never be intimitated in a room full of intelligent people, you are one of them.",
+  "It's okay to not know",
+  "Being uncomfortable means you are growing.",
+  "Go with the flow and focus on what is in, not out, of your control.",
+  "Travel and explore the world around you, it will help you appreciate different perspectives.",
+  "Let go, and let god.",
+  "Show up for yourself everyday."
+];
 
 function getAdvice() {
-    fetch('https://api.adviceslip.com/advice')
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(data) {
-            var full = data;          
-            var adviceContainer = full.slip;  
-            var message = adviceContainer.advice;
+  var adviceEl = document.getElementById("adviceText");
+  if (!adviceEl) return;
 
-            document.getElementById("adviceText").innerText = message;
+  var pick = MY_ADVICE[Math.floor(Math.random() * MY_ADVICE.length)];
+  adviceEl.textContent = pick;
+}
 
-        })
-        .catch(function(error) {
-            document.getElementById("adviceText").innerText = 'Error, try again!';
-        });
+function initAdviceButton() {
+  var button = document.getElementById("adviceButton");
+  if (button) button.addEventListener("click", getAdvice);
 }
 
 
-function toggleMenu() {
-    var links = document.querySelector('.nav-links');
-    links.classList.toggle('active');
-}
-  
-document.querySelector('.hamburger-menu').addEventListener('click', toggleMenu);
+// Scroll-reveal animation
 
+function initScrollReveal() {
+  var targets = document.querySelectorAll("[data-animate]");
+  if (!targets.length) return;
 
-function highlightActiveLink() {
-    var currentPage = window.location.pathname.split('/').pop();
-    if(currentPage == '') {
-        currentPage = 'index.html';
-    }
-    var links = document.querySelectorAll('nav a');
-    links.forEach(function(link) {
-        var href = link.getAttribute('href');
-        if(href.endsWith(currentPage)) {
-        link.classList.add('active');
-        }
+  if (!("IntersectionObserver" in window)) {
+    targets.forEach(function (el) { el.classList.add("in-view"); });
+    return;
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in-view");
+        observer.unobserve(entry.target);
+      }
     });
+  }, { threshold: 0.15 });
+
+  targets.forEach(function (el) { observer.observe(el); });
 }
+
+
+// Skill bar fill animation
+
+function initSkillBars() {
+  var bars = document.querySelectorAll(".skill-bar-fill");
+  if (!bars.length) return;
+
+  if (!("IntersectionObserver" in window)) {
+    bars.forEach(function (bar) { bar.style.width = bar.dataset.level + "%"; });
+    return;
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.style.width = entry.target.dataset.level + "%";
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+
+  bars.forEach(function (bar) { observer.observe(bar); });
+}
+
+// Ambient background: mouse-reactive parallax on the floating blobs
+
+function initAmbientBackground() {
+  var wraps = document.querySelectorAll(".blob-wrap");
+  if (!wraps.length) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  window.addEventListener("mousemove", function (event) {
+    var x = event.clientX / window.innerWidth - 0.5;
+    var y = event.clientY / window.innerHeight - 0.5;
+
+    wraps.forEach(function (wrap, index) {
+      var strength = (index + 1) * 14;
+      wrap.style.transform = "translate(" + (x * strength) + "px, " + (y * strength) + "px)";
+    });
+  }, { passive: true });
+}
+
+// Init
+
+
+setTheme(getPreferredTheme());
+
+document.addEventListener("DOMContentLoaded", function () {
+  initThemeToggle();
+  initHamburgerMenu();
+  highlightActiveLink();
+  addYear();
+  initReadMore();
+  initContactForm();
+  initAdviceButton();
+  initScrollReveal();
+  initSkillBars();
+  initAmbientBackground();
+
+  if (window.location.pathname.endsWith("index.html") || window.location.pathname === "/" ||
+      window.location.pathname.split("/").pop() === "") {
+    greetingFunc();
+  }
+});

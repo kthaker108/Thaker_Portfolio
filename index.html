@@ -2,19 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script>
-        (function () {
-            var stored = localStorage.getItem("theme");
-            var theme = stored || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-            document.documentElement.setAttribute("data-theme", theme);
-        })();
-    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Khushi Thaker">
     <meta name="keywords" content="Carnegie Mellon University, Information Systems and Artificial Intelligence">
     <meta name="description" content="Khushi Thaker professional website">
-    <link rel="stylesheet" href="static/style.css">
-    <script defer src="./static/script.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=Space+Grotesk:wght@400..700&display=swap" rel="stylesheet">
@@ -22,67 +13,7 @@
     <title>Khushi Thaker</title>
 </head>
 <body>
-
-    <div class="bg-ambient" aria-hidden="true">
-        <div class="blob-wrap wrap-1"><span class="blob blob-1"></span></div>
-        <div class="blob-wrap wrap-2"><span class="blob blob-2"></span></div>
-        <div class="blob-wrap wrap-3"><span class="blob blob-3"></span></div>
-        <div class="blob-wrap wrap-4"><span class="blob blob-4"></span></div>
-    </div>
-
-    <header class="site-header">
-        <div class="nav-inner">
-            <h1 id="webname">Khushi Thaker</h1>
-            <nav>
-                <ul class="nav-links">
-                    <li><a class="webLinks" href="index.html">Home</a></li>
-                    <li><a class="webLinks" href="views/cv.html">Experience</a></li>
-                    <li><a class="webLinks" href="views/contact.html">Contact Me</a></li>
-                    <li><a class="webLinks" href="views/fun.html">About Me</a></li>
-                </ul>
-                <div class="nav-utility">
-                    <button id="themeToggle" type="button" aria-label="Toggle dark mode">
-                        <i class="fa-solid fa-moon"></i>
-                        <i class="fa-solid fa-sun"></i>
-                    </button>
-                    <div class="hamburger-menu" aria-label="Toggle menu">
-                        <i class="fas fa-bars"></i>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </header>
-
-    <section class="hero">
-        <div class="container hero-inner">
-            <div data-animate>
-                <span class="eyebrow">Glad You're Here</span>
-                <h2 id="greetingID">I'm Khushi!</h2>
-                <p class="hero-tagline">Third-Year Information Systems and AI Student @ CMU</p>
-                <p id="shortIntro">I am a third-year Information Systems student at Carnegie Mellon University, with a minor in AI. Originally from the Philly area, I am heavily involved on campus through many
-                    activities and organizations like Girls Who Code, Women in IS, Dietrich Student Advisory Board, Tartan Ambassadors, and the CMU AI Safety Initiative.</p>
-
-                <p id="longIntro">I am very interested in AI, and am looking to pursue a minor or double major to further explore this field of study. In my free time, I love to spend
-                    time with family and friends, travel and visit beautiful places with delicious foods, and binge-watch shows like the Office and Survivor!
-                </p>
-
-                <div class="hero-ctas">
-                    <button id="readMoreID" type="button" class="btn btn-ghost">Read More</button>
-                    <button id="readLessID" type="button" class="btn btn-ghost">Read Less</button>
-                    <a class="btn btn-primary" href="views/cv.html">View Experience</a>
-                    <a class="btn btn-ghost" href="views/contact.html">Get In Touch</a>
-                </div>
-            </div>
-
-            <div class="hero-photo-wrap" data-animate>
-                <img src="photos/headshot.jpeg" alt="Picture of Khushi Thaker" class="hero-photo">
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p id="copyYear">designed ✎ᝰ and coded 👩🏻‍💻 by Khushi Thaker &copy; </p>
-    </footer>
-
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>

@@ -567,6 +567,13 @@ nav {
   margin: 0;
 }
 
+.next-header p.next-header-note {
+  margin-top: 10px;
+  font-size: 0.82rem;
+  font-style: italic;
+  opacity: 0.7;
+}
+
 .next-grid {
   position: relative;
   display: grid;

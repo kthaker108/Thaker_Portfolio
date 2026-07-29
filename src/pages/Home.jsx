@@ -168,7 +168,7 @@ export default function Home() {
           <div className="next-header">
             <span className="eyebrow">Where To Next</span>
             <h2>Outwit. Outplay. Outlast.</h2>
-            <p>Three ways to get to know me a little better — pick a direction, or read through all three.</p>
+            <p>Three ways to get to know me a little better.</p>
             <p className="next-header-note">If you know, you know. If you don't — welcome, and also, watch Survivor.</p>
           </div>
 

@@ -680,14 +680,23 @@ nav {
 
 .timeline-item {
   position: relative;
-  padding: 4px 0 32px 20px;
+  margin: 0 0 20px 20px;
+  padding: 18px 22px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 4px 16px -12px var(--shadow);
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
 }
 
 .timeline-item::before {
   content: "";
   position: absolute;
   left: -35px;
-  top: 6px;
+  top: 24px;
   width: 14px;
   height: 14px;
   border-radius: 50%;
@@ -695,9 +704,25 @@ nav {
   box-shadow: 0 0 0 4px var(--bg);
 }
 
+.timeline-item-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 16px;
+}
+
 .timeline-item h3 {
   margin-bottom: 4px;
   font-size: 1.1rem;
+}
+
+.timeline-date {
+  flex-shrink: 0;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 500;
+  white-space: nowrap;
 }
 
 .timeline-item .role-org {
@@ -796,11 +821,27 @@ nav {
 
 /* Projects */
 
+.projects-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 24px;
+}
+
 .project-card {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 20px;
   align-items: flex-start;
+}
+
+.project-card h4 {
+  margin-bottom: 6px;
+}
+
+.project-card p {
+  color: var(--text-muted);
+  margin: 0;
 }
 
 .project-icon {
@@ -834,6 +875,25 @@ nav {
 
 .text-center {
   text-align: center;
+}
+
+.resume-card {
+  max-width: 380px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.resume-card i {
+  font-size: 1.5rem;
+  color: var(--accent);
+}
+
+.resume-card p {
+  margin: 0;
+  font-size: 0.92rem;
 }
 
 .project-link {

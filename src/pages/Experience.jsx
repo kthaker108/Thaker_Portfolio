@@ -132,14 +132,14 @@ export default function Experience() {
       </div>
 
 
-      <div className="section-block text-center" data-animate>
+      {/* <div className="section-block text-center" data-animate>
         <div className="card resume-card">
           <i className="fa-solid fa-file-arrow-down"></i>
           <p>For more detailed descriptions about the information listed above, click to view my{" "}
             <a href="https://drive.google.com/file/d/1u-8fMLOeHXR_EKvcFt4X2SJMWfiNc8Pw/view?usp=sharing" target="_blank" rel="noreferrer">Resume</a>
           </p>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

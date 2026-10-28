@@ -14,7 +14,7 @@ const MY_ADVICE = [
   "Put yourself out there and take risks, you won't regret it.",
   "Grow, be independent, and learn.",
   "Be kind to yourself and others.",
-  "Never be intimitated in a room full of intelligent people, you are one of them.",
+  "Never be intimidated in a room full of intelligent people, you are one of them.",
   "It's okay to not know what comes next.",
   "Being uncomfortable means you are growing.",
   "Go with the flow and focus on what is in, not out, of your control.",
@@ -42,13 +42,21 @@ export default function Contact() {
   const [comment, setComment] = useState("");
   const [errors, setErrors] = useState({ name: "", email: "", comment: "" });
   const [status, setStatus] = useState({ message: "", success: false });
-  const [advice, setAdvice] = useState(
-    "Read a piece of advice I've learned and received throughout my personal life."
-  );
+  const [adviceIndex, setAdviceIndex] = useState(null);
+  const [copied, setCopied] = useState(false);
 
   function handleGetAdvice() {
-    const pick = MY_ADVICE[Math.floor(Math.random() * MY_ADVICE.length)];
-    setAdvice(pick);
+    // Pick a different piece of advice than the one currently showing
+    let pick = Math.floor(Math.random() * MY_ADVICE.length);
+    if (pick === adviceIndex) pick = (pick + 1) % MY_ADVICE.length;
+    setAdviceIndex(pick);
+  }
+
+  function handleCopyEmail() {
+    navigator.clipboard?.writeText(CONTACT_EMAIL).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
   }
 
   function handleSubmit(event) {
@@ -56,7 +64,7 @@ export default function Contact() {
 
     const nameError = name.trim() ? "" : "Please enter your name.";
     const emailError = EMAIL_PATTERN.test(email.trim()) ? "" : "Please enter a valid email.";
-    const commentError = comment.trim() ? "" : "Please enter a comment.";
+    const commentError = comment.trim() ? "" : "Please enter a message.";
 
     setErrors({ name: nameError, email: emailError, comment: commentError });
 
@@ -83,62 +91,98 @@ export default function Contact() {
       <div className="page-header" data-animate>
         <span className="eyebrow">Let's Connect 🔗 </span>
         <h2>Contact Me</h2>
+        <p className="page-subtitle">Whether it's an opportunity, a project, or just a hello, I'd love to hear from you.</p>
       </div>
 
       <div className="contact-grid">
-        <div className="card" data-animate>
-          <h3>Reach Me</h3>
-          <div className="contact-methods">
-            <div className="contact-method">
-              <i className="fa-solid fa-envelope"></i>
-              <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+        <div className="contact-side">
+          <div className="contact-links" data-animate>
+            <div className="contact-tile accent-lavender">
+              <a className="contact-tile-main" href={`mailto:${CONTACT_EMAIL}`}>
+                <div className="item-icon"><i className="fa-solid fa-envelope"></i></div>
+                <div>
+                  <span className="contact-tile-label">Email</span>
+                  <span className="contact-tile-value">{CONTACT_EMAIL}</span>
+                </div>
+              </a>
+              <button type="button" className="copy-btn" onClick={handleCopyEmail} aria-label="Copy email address">
+                <i className={copied ? "fa-solid fa-check" : "fa-regular fa-copy"}></i>
+                <span>{copied ? "Copied!" : "Copy"}</span>
+              </button>
             </div>
-            <div className="contact-method">
-              <i className="fa-brands fa-linkedin"></i>
-              <a href="https://www.linkedin.com/in/khushi-thaker108" target="_blank" rel="noreferrer">LinkedIn</a>
+
+            <div className="contact-tile accent-sky">
+              <a className="contact-tile-main" href="https://www.linkedin.com/in/khushi-thaker108" target="_blank" rel="noreferrer">
+                <div className="item-icon"><i className="fa-brands fa-linkedin-in"></i></div>
+                <div>
+                  <span className="contact-tile-label">LinkedIn</span>
+                  <span className="contact-tile-value">in/khushi-thaker108</span>
+                </div>
+                <i className="fa-solid fa-arrow-up-right-from-square contact-tile-arrow"></i>
+              </a>
+            </div>
+
+            <div className="contact-tile accent-teal">
+              <div className="contact-tile-main">
+                <div className="item-icon"><i className="fa-solid fa-location-dot"></i></div>
+                <div>
+                  <span className="contact-tile-label">Based in</span>
+                  <span className="contact-tile-value">Pittsburgh, PA</span>
+                </div>
+              </div>
             </div>
           </div>
-          <br />
-          <div className="card text-center advice-card" data-animate>
-            <h3>Need Some Advice?</h3>
-            <p id="adviceText">{advice}</p>
-            <button id="adviceButton" type="button" className="btn btn-primary" onClick={handleGetAdvice}>Get Advice</button>
+
+          <div className="advice-card" data-animate>
+            <i className="fa-solid fa-quote-left advice-quote"></i>
+            <span className="section-kicker">Need some advice?</span>
+            <p id="adviceText" key={adviceIndex}>
+              {adviceIndex === null
+                ? "Read a piece of advice I've learned and received throughout my personal life."
+                : MY_ADVICE[adviceIndex]}
+            </p>
+            <button id="adviceButton" type="button" className="btn btn-primary" onClick={handleGetAdvice}>
+              <i className="fa-solid fa-shuffle"></i> {adviceIndex === null ? "Get Advice" : "Another One"}
+            </button>
           </div>
         </div>
 
-        <div className="card" data-animate>
+        <div className="form-card" data-animate>
+          <span className="section-kicker">Drop a note</span>
           <h3>Send a Message</h3>
           <form onSubmit={handleSubmit} noValidate>
-            <div className="field">
-              <label htmlFor="name">Your Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                required
-                className={errors.name ? "invalid" : ""}
-                value={name}
-                onChange={(event) => setName(event.target.value)}
-              />
-              <span className="field-error">{errors.name}</span>
+            <div className="field-row">
+              <div className="field">
+                <label htmlFor="name">Your Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  className={errors.name ? "invalid" : ""}
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+                />
+                <span className="field-error">{errors.name}</span>
+              </div>
+
+              <div className="field">
+                <label htmlFor="email">Your Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  className={errors.email ? "invalid" : ""}
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                />
+                <span className="field-error">{errors.email}</span>
+              </div>
             </div>
 
             <div className="field">
-              <label htmlFor="email">Your Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                className={errors.email ? "invalid" : ""}
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-              />
-              <span className="field-error">{errors.email}</span>
-            </div>
-
-            <div className="field">
-              <label htmlFor="comment">Your Comment</label>
+              <label htmlFor="comment">Your Message</label>
               <textarea
                 id="comment"
                 name="comment"
@@ -151,7 +195,9 @@ export default function Contact() {
               <span className="field-error">{errors.comment}</span>
             </div>
 
-            <button type="submit" className="btn btn-primary">Send via Email</button>
+            <button type="submit" className="btn btn-primary">
+              Send via Email <i className="fa-solid fa-paper-plane"></i>
+            </button>
             <p id="errorMessage" className={status.success ? "success" : ""}>{status.message}</p>
           </form>
         </div>

@@ -2,18 +2,30 @@ import { useEffect, useState } from "react";
 import hiking from "../assets/photos/hiking.jpeg";
 import kayak from "../assets/photos/kayak.jpeg";
 import volunteer from "../assets/photos/volunteer.jpeg";
-import nascar from "../assets/photos/nascar.jpeg";
+import dance from "../assets/photos/dance.jpeg";
 import views from "../assets/photos/views.png";
 import coffee from "../assets/photos/coffee.jpeg";
+import conference from "../assets/photos/conference.jpeg";
 import { useScrollReveal } from "../hooks/usePageEffects";
 
+const INTERESTS = [
+  { label: "Travel", icon: "fa-plane", accent: "sky" },
+  { label: "Books", icon: "fa-book", accent: "amber" },
+  { label: "Hikes & Nature", icon: "fa-person-hiking", accent: "teal" },
+  { label: "Baking", icon: "fa-cookie", accent: "pink" },
+  { label: "Dance", icon: "fa-music", accent: "lavender" },
+  { label: "Sitcoms, Sci-Fi & Reality TV", icon: "fa-tv", accent: "sky" },
+];
+
+// The first photo is shown as the tall featured tile. `caption` is the full text shown in the lightbox.
 const GALLERY = [
-  { src: hiking, caption: "Hiking in Upstate NY", alt: "Khushi on a hike" },
-  { src: kayak, caption: "Enjoying the calmness of Lake Tahoe", alt: "Kayaking in Lake Tahoe" },
-  { src: volunteer, caption: "Volunteering at a Walkathon with BAPS Charities in Canton, MI", alt: "Khushi volunteering" },
-  { src: nascar, caption: "At my first NASCAR Race", alt: "NASCAR Race" },
-  { src: views, caption: "Admiring views in Galway, Ireland", alt: "Sitting by Water" },
-  { src: coffee, caption: "Exploring cafes in Detroit, MI", alt: "Coffee" },
+  { src: conference, title: "2026 Tapia Conference", place: "Atlanta, GA", caption: "Attending the 2026 Tapia Conference in Atlanta, GA", alt: "At a Conference" },
+  { src: hiking, title: "Hiking", place: "Upstate NY", caption: "Hiking in Upstate NY", alt: "Khushi on a hike" },
+  { src: kayak, title: "Kayaking", place: "Lake Tahoe", caption: "Enjoying the calmness of Lake Tahoe", alt: "Kayaking in Lake Tahoe" },
+  { src: volunteer, title: "BAPS Charities Walkathon", place: "Canton, MI", caption: "Volunteering at a Walkathon with BAPS Charities in Canton, MI", alt: "Khushi volunteering" },
+  { src: dance, title: "Dance Performance at Akshardham Temple", place: "Robbinsville, NJ", caption: "Performing a dance at the Akshardham Temple in Robbinsville, NJ", alt: "Dance performance at the Akshardham Temple" },
+  { src: views, title: "Admiring the views", place: "Galway, Ireland", caption: "Admiring views in Galway, Ireland", alt: "Sitting by Water" },
+  { src: coffee, title: "Cafe hopping", place: "Detroit, MI", caption: "Exploring cafes in Detroit, MI", alt: "Coffee" },
 ];
 
 export default function Fun() {
@@ -31,21 +43,30 @@ export default function Fun() {
   return (
     <div className="container">
       <div className="page-header" data-animate>
-        <span className="eyebrow">What I Enjoy 💭</span>
+        <span className="eyebrow">Beyond the Resume 💭</span>
         <h2>Things I Love To Do</h2>
       </div>
 
-      <div className="interests-grid" data-animate>
-        <span className="interest-pill"><i className="fa-solid fa-plane"></i> Travel</span>
-        <span className="interest-pill"><i className="fa-solid fa-book"></i> Books</span>
-        <span className="interest-pill"><i className="fa-solid fa-person-walking"></i> Hikes and Nature</span>
-        <span className="interest-pill"><i className="fa-solid fa-cookie"></i>Baking</span>
-        <span className="interest-pill"><i className="fa-solid fa-music"></i>Dance</span>
-        <span className="interest-pill"><i className="fa-solid fa-tv"></i> SitComs, Sci-Fi, & Reality TV</span>
-      </div>
+      <section className="section-block">
+        <div className="section-heading" data-animate>
+          <span className="section-kicker">Interests</span>
+          <h3>What I'm Into</h3>
+        </div>
+        <div className="interests-grid">
+          {INTERESTS.map((interest) => (
+            <div key={interest.label} className={`interest-tile accent-${interest.accent}`} data-animate>
+              <div className="item-icon"><i className={`fa-solid ${interest.icon}`}></i></div>
+              <span>{interest.label}</span>
+            </div>
+          ))}
+        </div>
+      </section>
 
-      <div className="section-block">
-        <h3 data-animate>Visual Snippets of My Life 📸</h3>
+      <section className="section-block">
+        <div className="section-heading" data-animate>
+          <span className="section-kicker">Snapshots 📸</span>
+          <h3>Visual Snippets of My Life</h3>
+        </div>
         <div className="gallery-grid">
           {GALLERY.map((item) => (
             <button
@@ -56,12 +77,15 @@ export default function Fun() {
               onClick={() => setSelected(item)}
             >
               <img src={item.src} alt={item.alt} />
-              <span className="gallery-caption">{item.caption}</span>
+              <span className="gallery-caption">
+                <strong>{item.title}</strong>
+                {item.place && <span><i className="fa-solid fa-location-dot"></i> {item.place}</span>}
+              </span>
             </button>
           ))}
         </div>
-      </div>
-
+      </section>
+l
       <div
         className={"lightbox" + (selected ? " open" : "")}
         onClick={(event) => {

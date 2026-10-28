@@ -5,15 +5,22 @@ import { useScrollReveal } from "../hooks/usePageEffects";
 
 function getGreeting() {
   const hour = new Date().getHours();
-  if (hour < 12) return "Good Morning, I am Khushi!";
-  if (hour < 18) return "Good Afternoon, I am Khushi!";
-  return "Good Evening, I am Khushi!";
+  if (hour < 12) return "Good Morning";
+  if (hour < 18) return "Good Afternoon";
+  return "Good Evening";
 }
+
+const QUICK_FACTS = [
+  { icon: "fa-graduation-cap", text: "CMU '27" },
+  { icon: "fa-laptop-code", text: "Information Systems + AI" },
+  { icon: "fa-location-dot", text: "Philadelphia → Pittsburgh" },
+];
 
 const NEXT_STEPS = [
   {
     to: "/experience",
     icon: "fa-brain",
+    accent: "lavender",
     eyebrow: "Outwit",
     title: "Experience",
     description: "Where I've worked, and the strategy behind the roles I've taken on.",
@@ -21,6 +28,7 @@ const NEXT_STEPS = [
   {
     to: "/projects",
     icon: "fa-puzzle-piece",
+    accent: "teal",
     eyebrow: "Outplay",
     title: "Projects",
     description: "Things I've built, broken, and rebuilt better.",
@@ -28,8 +36,9 @@ const NEXT_STEPS = [
   {
     to: "/fun",
     icon: "fa-fire",
+    accent: "pink",
     eyebrow: "Outlast",
-    title: "Hobbies",
+    title: "Beyond the Resume",
     description: "What keeps me going when I'm off the clock.",
   },
 ];
@@ -138,18 +147,30 @@ export default function Home() {
         <div className="container hero-inner">
           <div data-animate>
             <span className="eyebrow">Glad You're Here ◡̈ </span>
-            <h2 id="greetingID">{greeting}</h2>
+            <h2 id="greetingID">{greeting}, I am <span className="gradient-text">Khushi</span>!</h2>
             <p className="hero-tagline">Third-Year Information Systems and AI Student @ Carnegie Mellon University</p>
+            <div className="hero-facts">
+              {QUICK_FACTS.map((fact) => (
+                <span key={fact.text} className="meta-chip"><i className={`fa-solid ${fact.icon}`}></i> {fact.text}</span>
+              ))}
+            </div>
             <p id="shortIntro">
               I am a third-year IS student at CMU, with a minor in AI. Originally from Philadelphia, PA, I'm currently based in Pittsburgh for school and loving it!
               I am heavily involved in external initiatives through many activities and organizations, along with my on-campus responsibilities and commitments.
-              <br /><br />
+            </p>
+            <p id="longIntro">
               Explore pieces of my life, including my professional experience, projects, skills, personal interests, and ways to get in touch with me through this site!
             </p>
+            <div className="hero-ctas">
+              <Link to="/experience" className="btn btn-primary">See My Experience <i className="fa-solid fa-arrow-right"></i></Link>
+              <Link to="/contact" className="btn btn-ghost"><i className="fa-solid fa-paper-plane"></i> Get in Touch</Link>
+            </div>
           </div>
 
           <div className="hero-photo-wrap" data-animate>
             <img src={headshot} alt="Picture of Khushi Thaker" className="hero-photo" />
+            <span className="photo-badge badge-top"><span aria-hidden="true">🎓</span> CMU Tartan</span>
+            <span className="photo-badge badge-bottom"><span aria-hidden="true">🚗</span> Ford Intern '26</span>
           </div>
         </div>
 
@@ -174,11 +195,12 @@ export default function Home() {
 
           <div className="next-grid">
             {NEXT_STEPS.map((step) => (
-              <Link to={step.to} className="next-card" key={step.to}>
+              <Link to={step.to} className={`next-card accent-${step.accent}`} key={step.to}>
                 <span className="next-card-icon"><i className={`fa-solid ${step.icon}`}></i></span>
                 <span className="next-card-eyebrow">{step.eyebrow}</span>
                 <h3>{step.title}</h3>
                 <p>{step.description}</p>
+                <span className="next-card-cta">Explore <i className="fa-solid fa-arrow-right"></i></span>
               </Link>
             ))}
           </div>

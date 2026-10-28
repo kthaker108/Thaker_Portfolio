@@ -29,7 +29,7 @@ export default function Layout() {
               <li><NavLink className={navLinkClass} to="/" end onClick={closeMenu}>Home</NavLink></li>
               <li><NavLink className={navLinkClass} to="/experience" onClick={closeMenu}>Experience</NavLink></li>
               <li><NavLink className={navLinkClass} to="/projects" onClick={closeMenu}>Projects</NavLink></li>
-              <li><NavLink className={navLinkClass} to="/fun" onClick={closeMenu}>Hobbies</NavLink></li>
+              <li><NavLink className={navLinkClass} to="/fun" onClick={closeMenu}>Beyond the Resume</NavLink></li>
               <li><NavLink className={navLinkClass} to="/contact" onClick={closeMenu}>Contact Me</NavLink></li>
             </ul>
             <div className="nav-utility">

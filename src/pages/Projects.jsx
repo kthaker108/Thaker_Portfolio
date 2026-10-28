@@ -2,6 +2,15 @@ import { useScrollReveal } from "../hooks/usePageEffects";
 
 const PROJECTS = [
   {
+    title: "StudyShift Study Web App",
+    type: "Hackathon",
+    icon: "fa-book-open-reader",
+    accent: "amber",
+    text: "Built with a team at the 2026 Tapia Conference hackathon, StudyShift turns textbook passages and technical documents into accessible study material for learners with ADHD or dyslexia, including summaries, flowcharts, step-by-step animations, and a Focus mode with a Pomodoro timer. AI-generated content is verified against the original text so every point traces back to its source.",
+    tags: ["React", "TypeScript", "Python", "LLMs"],
+    link: "https://github.com/MahaZainab/GitGirls_Tapia2026",
+  },
+  {
     title: "Duquesne Incline Website",
     type: "Course Project",
     icon: "fa-mountain-city",
